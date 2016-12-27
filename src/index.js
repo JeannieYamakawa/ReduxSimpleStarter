@@ -18,19 +18,25 @@ class App extends Component {
                         selectedVideo: null
                     };
 //retrieve videos and set selectedVideo to the first returned video
-        YTSearch({key: API_KEY, term: 'Grumpy Cat'}, (data) =>{
+
+    this.videoSearch('Grumpy Cat')
+}
+
+    videoSearch(term){
+        YTSearch({key: API_KEY, term: term}, (data) =>{
             this.setState({
                 videos: data,
                 selectedVideo:data[0]
             })
         })
     }
-//onVideoSelect is a callback function that gets passed from App to VideoList to VideoListItem. Takes in a video and updates App's state of selectedVideo
 
+
+//onVideoSelect is a callback function that gets passed from App to VideoList to VideoListItem. Takes in a video and updates App's state of selectedVideo
     render(){
         return (
             <div>
-                <SearchBar />
+                <SearchBar onSearchTermChange={(term) => this.videoSearch(term)}/>
                 <VideoDetail video={this.state.selectedVideo} />
                 <VideoList
                     onVideoSelect = {(selectedVideo) => this.setState({selectedVideo})}
