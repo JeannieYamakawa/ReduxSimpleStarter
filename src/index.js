@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import YTSearch from 'youtube-api-search';
@@ -17,11 +18,10 @@ class App extends Component {
         this.state = {  videos: [],
                         selectedVideo: null
                     };
-//retrieve videos and set selectedVideo to the first returned video
-
+//sets just an initial search term
     this.videoSearch('Grumpy Cat')
 }
-
+//retrieve videos and set selectedVideo to the first returned video
     videoSearch(term){
         YTSearch({key: API_KEY, term: term}, (data) =>{
             this.setState({
@@ -32,11 +32,14 @@ class App extends Component {
     }
 
 
-//onVideoSelect is a callback function that gets passed from App to VideoList to VideoListItem. Takes in a video and updates App's state of selectedVideo
+//onVideoSelect is a callback function that gets passed from App to VideoList to VideoListItem. Takes in a video and updates App's state of selectedVideo.
     render(){
+        //used lodash to "throttle" how often the new search term is rendered to every 300 milliseconds.
+        const videoSearch = _.debounce((term) => {this.videoSearch(term)},300);
+        //also gives a callback function to the SearchBar component to use called onSearchTermChange. what it does is defined in the SearchBar document.
         return (
             <div>
-                <SearchBar onSearchTermChange={(term) => this.videoSearch(term)}/>
+                <SearchBar onSearchTermChange={videoSearch}/>
                 <VideoDetail video={this.state.selectedVideo} />
                 <VideoList
                     onVideoSelect = {(selectedVideo) => this.setState({selectedVideo})}

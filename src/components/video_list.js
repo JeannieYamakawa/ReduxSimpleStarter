@@ -1,10 +1,10 @@
 import React from 'react';
 import VideoListItem from './video_list_item';
 
-
+//functional components like VideoList don't depend on state.
 const VideoList = (props) =>{
     const videoItems = props.videos.map((thisVideo)=>{
-        //passed property onVideoSelect is from App 
+        //passed property onVideoSelect is from App
         return (
             < VideoListItem
             onVideoSelect={props.onVideoSelect}

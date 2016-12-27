@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-//this is a class-based component (not a function component), and class-based to be able to save user's input STATE.
+//this is a class-based component (not a functional component), and class-based components are used whenever we want to implement the concept of STATE.
 class SearchBar extends Component {
     //initializes the state
     constructor(props){
@@ -8,6 +8,8 @@ class SearchBar extends Component {
         super(props);
         //creates a new state object, and defines a new property 'term' that user updates. only EVER update state with this syntax inside of the constructor funct, here. otherwise use this.setState anywhere else!
         this.state = {term: ''};
+        //^^ this is component-level-state.
+
     }
     //'render' is a method/function that will be run upon state change. below says "the value of the input is equal to the state's term property."
         render(){
