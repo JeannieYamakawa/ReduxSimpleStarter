@@ -12,7 +12,7 @@ class SearchBar extends Component {
     //'render' is a method/function that will be run upon state change. below says "the value of the input is equal to the state's term property."
         render(){
         return (
-        <div>
+        <div className='search-bar'>
             <input value={this.state.term} onChange={(event)=>this.setState({term: event.target.value})}/>
               {/* Value of the input: {this.state.term} */}
         </div>
